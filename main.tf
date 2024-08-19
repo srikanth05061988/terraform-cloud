@@ -1,14 +1,31 @@
-# provider.tf
+# Specify the AWS provider
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-1"  # Change to your preferred region
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-04a81a99f5ec58529" # Example AMI ID for Amazon Linux 2 in us-east-1
-  instance_type = "t2.micro"
-  key_name      = "newkey" # Replace with your key pair name
+# Define a Security Group
+resource "aws_security_group" "example" {
+  name        = "example-security-group"
+  description = "Security group with unrestricted egress"
+  vpc_id      = "vpc-005ade16775dd34dd"  # Replace with your VPC ID
+
+  # Egress rule to allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Ingress rules can be added here if needed
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
-    Name = "terraform-instance"
+    Name = "example-security-group"
   }
 }
