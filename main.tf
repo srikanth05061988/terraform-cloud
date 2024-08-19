@@ -8,7 +8,7 @@ resource "aws_instance" "example" {
   instance_type = "t2.micro"
   key_name      = "newkey" # Replace with your key pair name
 
-  tags {
-    "Name" = "terraform"
+  tags = {
+    Name = "terraform-instance"
   }
 }
